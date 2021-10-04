@@ -42,4 +42,9 @@ export interface HeaderProps {
    * Title style overrides.
    */
   titleStyle?: StyleProp<TextStyle>
+
+  /**
+   * Title style overrides.
+   */
+  navigation?: any
 }

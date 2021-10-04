@@ -43,4 +43,14 @@ export interface ScreenProps {
    * Only applies to scroll preset.
    */
   keyboardShouldPersistTaps?: "handled" | "always" | "never"
+
+  /**
+   * Header components.
+   */
+  header?: React.ReactNode
+
+  /**
+   * Footer components.
+   */
+  footer?: React.ReactNode
 }

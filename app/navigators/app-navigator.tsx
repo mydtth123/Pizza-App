@@ -8,8 +8,18 @@ import React from "react"
 import { useColorScheme } from "react-native"
 import { NavigationContainer, DefaultTheme, DarkTheme } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { WelcomeScreen, DemoScreen, DemoListScreen } from "../screens"
+import { createDrawerNavigator } from "@react-navigation/drawer"
+import {
+  HomeScreen,
+  ChooseSizeScreen,
+  ChooseCrustScreen,
+  ChooseToppingScreen,
+  CheckPizzaScreen,
+  CheckoutScreen,
+  OrderDetailScreen,
+} from "../screens"
 import { navigationRef } from "./navigation-utilities"
+import { DrawerContent } from "./drawer-content"
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -24,13 +34,18 @@ import { navigationRef } from "./navigation-utilities"
  *   https://reactnavigation.org/docs/typescript#type-checking-the-navigator
  */
 export type NavigatorParamList = {
-  welcome: undefined
-  demo: undefined
-  demoList: undefined
+  home: undefined
+  "choose-size": undefined
+  "choose-crust": { size: string; price: number }
+  "choose-topping": { size: string; crust: string; price: number }
+  "check-pizza": { size: string; crust: string; price: number; toppingSelected: Array<number> }
+  checkout: { price: number }
+  "order-details": { price: number }
 }
 
 // Documentation: https://reactnavigation.org/docs/stack-navigator/
 const Stack = createNativeStackNavigator<NavigatorParamList>()
+const Drawer = createDrawerNavigator()
 
 const AppStack = () => {
   return (
@@ -38,11 +53,15 @@ const AppStack = () => {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="welcome"
+      initialRouteName="home"
     >
-      <Stack.Screen name="welcome" component={WelcomeScreen} />
-      <Stack.Screen name="demo" component={DemoScreen} />
-      <Stack.Screen name="demoList" component={DemoListScreen} />
+      <Stack.Screen name="home" component={HomeScreen} />
+      <Stack.Screen name="choose-size" component={ChooseSizeScreen} />
+      <Stack.Screen name="choose-crust" component={ChooseCrustScreen} />
+      <Stack.Screen name="choose-topping" component={ChooseToppingScreen} />
+      <Stack.Screen name="check-pizza" component={CheckPizzaScreen} />
+      <Stack.Screen name="checkout" component={CheckoutScreen} />
+      <Stack.Screen name="order-details" component={OrderDetailScreen} />
     </Stack.Navigator>
   )
 }
@@ -57,7 +76,15 @@ export const AppNavigator = (props: NavigationProps) => {
       theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
       {...props}
     >
-      <AppStack />
+      <Drawer.Navigator
+        initialRouteName="app"
+        screenOptions={{
+          headerShown: false,
+        }}
+        drawerContent={(props) => <DrawerContent {...props} />}
+      >
+        <Drawer.Screen name="app" component={AppStack} />
+      </Drawer.Navigator>
     </NavigationContainer>
   )
 }
@@ -73,5 +100,5 @@ AppNavigator.displayName = "AppNavigator"
  *
  * `canExit` is used in ./app/app.tsx in the `useBackButtonHandler` hook.
  */
-const exitRoutes = ["welcome"]
+const exitRoutes = ["home"]
 export const canExit = (routeName: string) => exitRoutes.includes(routeName)

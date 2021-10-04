@@ -1,8 +1,18 @@
 import * as React from "react"
-import { TouchableOpacity } from "react-native"
+import { LinearGradient } from "expo-linear-gradient"
+import { TouchableOpacity, ViewStyle } from "react-native"
 import { Text } from "../text/text"
 import { viewPresets, textPresets } from "./button.presets"
 import { ButtonProps } from "./button.props"
+
+import { palette } from "../../theme/palette"
+
+const LINEAR_GRADIENT: ViewStyle = {
+  flex: 1,
+  width: "100%",
+  alignItems: "center",
+  justifyContent: "center",
+}
 
 /**
  * For your text displaying needs.
@@ -29,8 +39,16 @@ export function Button(props: ButtonProps) {
   const content = children || <Text tx={tx} text={text} style={textStyles} />
 
   return (
-    <TouchableOpacity style={viewStyles} {...rest}>
-      {content}
+    <TouchableOpacity {...rest} style={viewStyles}>
+      <LinearGradient
+        colors={[palette.red, palette.orange]}
+        start={[0.0, 0.5]}
+        end={[1.0, 0.5]}
+        locations={[0.0, 1.0]}
+        style={LINEAR_GRADIENT}
+      >
+        {content}
+      </LinearGradient>
     </TouchableOpacity>
   )
 }

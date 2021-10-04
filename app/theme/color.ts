@@ -39,7 +39,7 @@ export const color = {
   /**
    * The default color of text in many components.
    */
-  text: palette.white,
+  text: palette.purple,
   /**
    * Secondary information.
    */
@@ -61,4 +61,6 @@ export const color = {
    * white background
    */
   storybookTextColor: palette.black,
+
+  backgroundLightGrey: palette.lightGrey,
 }

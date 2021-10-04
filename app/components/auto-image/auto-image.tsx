@@ -4,10 +4,12 @@ import {
   ImageProps as DefaultImageProps,
   ImageURISource,
   Platform,
+  ImageStyle,
 } from "react-native"
 
 type ImageProps = DefaultImageProps & {
   source: ImageURISource
+  style?: ImageStyle
 }
 
 /**
