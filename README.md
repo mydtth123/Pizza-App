@@ -1,5 +1,9 @@
 # Welcome to Pizza-App!
 
+
+https://user-images.githubusercontent.com/46477521/135814571-4c1db033-9202-46d3-9b9c-64442f087213.mp4
+
+
 ## How to setup
 
 - Open terminal and run command:
