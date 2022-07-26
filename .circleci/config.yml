@@ -8,7 +8,7 @@ jobs:
   node:
     working_directory: ~/Pizza-App
     docker:
-      - image: cimg/node:12.16
+      - image: cimg/node:18.6
     steps:
       - checkout
 
